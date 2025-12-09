@@ -1,0 +1,31 @@
+---
+
+- name: Action asynchrone
+  hosts: test
+  tasks:
+  - name: Tâche asynchrone
+    ansible.builtin.shell:
+      cmd: for i in `seq 10` ; do date >> /tmp/async ; sleep 1 ; done
+    async: 30
+    poll: 0
+    register: asynchrone
+
+  - name: Affichage
+    ansible.builtin.debug:
+      var: asynchrone
+
+    # ici, il faudrait faire quelque chose d'intelligent
+
+  - name: État d'avancement
+    ansible.builtin.async_status:
+      jid: "{{ asynchrone.ansible_job_id }}"
+      # mode: status
+    register: etat
+    until: etat.finished
+    delay: 1
+    retries: 50
+
+  - name: Ménage
+    ansible.builtin.async_status:
+      jid: "{{ asynchrone.ansible_job_id }}"
+      mode: cleanup
