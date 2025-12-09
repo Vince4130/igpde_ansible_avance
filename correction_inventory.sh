@@ -16,17 +16,17 @@ while true
 do
 	case $1 in
 		--list )
-			list=1
-			shift
-			;;
+                list=1
+                shift
+                ;;
 		--host )
-			host=$2
-			shift 2
-			;;
+                host=$2
+                shift 2
+                ;;
 		-- )
-			shift
-			break
-			;;
+                shift
+                break
+                ;;
 	esac
 done
 
