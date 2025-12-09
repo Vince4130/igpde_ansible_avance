@@ -1,0 +1,28 @@
+---
+# tasks file for apache
+
+- name: Include vars
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install apache
+  ansible.builtin.package:
+    name: "{{ apache_pkg }}"
+    state: present
+
+- name: Active Apache Service
+  ansible.builtin.service:
+    name: "{{ apache_service }}"
+    state: started
+    enabled: true
+
+- name: Page HTML
+  ansible.builtin.template:
+    src: templates/htmlwelcome.j2
+    dest: "{{ server_path }}/index.html"
+
+- name: Firewall Configuration
+  ansible.builtin.service:
+    name: firewalld
+    state: stopped
+    enabled: false
+

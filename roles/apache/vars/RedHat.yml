@@ -1,0 +1,5 @@
+---
+# vars file for apache
+
+apache_pkg: httpd
+apache_service: httpd

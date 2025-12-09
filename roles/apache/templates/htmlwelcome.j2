@@ -1,0 +1,20 @@
+{# templates/htmlwelcome.j2 #}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ inventory_hostname }}</title>
+</head>
+<body>
+    <div class="title" style="margin: auto; color: darkgrey;">
+        <h1>Bienvenue sur le serveur Apache {{ inventory_hostname }}</h1>
+    </div>
+    <ul>
+        <li>OS => {{ ansible_os_family }}</li>
+        <li>Distribution => {{ ansible_distribution }}</li>
+        <li>Adresse ip => {{ ansible_all_ipv4_addresses }}</li>
+    </ul>
+</body>
+</html>

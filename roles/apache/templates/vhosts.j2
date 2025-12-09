@@ -1,0 +1,21 @@
+{% for vhost in apache_vhosts %}
+<VirtualHost *:80>
+  DocumentRoot {{ vhost.documentroot }}
+  ServerName {{ vhost.servername }}
+{% if vhost.serveradmin is defined %}
+  ServerAdmin {{ vhost.serveradmin }}
+{% endif %}
+  <Directory "{{ vhost.documentroot }}">
+    Options -Indexes FollowSymLinks
+    DirectoryIndex index.php index.html
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+    Require all granted
+  </Directory>
+
+    ErrorLog "/var/log/httpd/{{ vhost.servername }}.error_log"
+    CustomLog "/var/log/httpd/{{ vhost.servername }}.access_log" common
+</VirtualHost>
+
+{% endfor %}
